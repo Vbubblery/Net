@@ -1,0 +1,12 @@
+﻿@if ((string)Session["username"]!=null) {
+    <text>
+        Hello，@Html.ActionLink((string)Session["username"], "Profile", "Person", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" });
+            @Html.ActionLink("My friend", "Friend", "person");
+            @Html.ActionLink("LogOff", "Logoff", "person");
+    </text>
+} else {
+    <ul>
+        <li>@Html.ActionLink("Register", "create", "person", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Login", "Login", "person", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

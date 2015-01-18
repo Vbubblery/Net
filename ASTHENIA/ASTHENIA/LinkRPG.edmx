@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RpgGamingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="RpgGamingModelStoreContainer">
+          <EntitySet Name="Cell" EntityType="RpgGamingModel.Store.Cell" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Monster" EntityType="RpgGamingModel.Store.Monster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Object" EntityType="RpgGamingModel.Store.Object" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ObjectType" EntityType="RpgGamingModel.Store.ObjectType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Player" EntityType="RpgGamingModel.Store.Player" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Weapon" EntityType="RpgGamingModel.Store.Weapon" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ObjectTypeObject" Association="RpgGamingModel.Store.FK_ObjectTypeObject">
+            <End Role="ObjectType" EntitySet="ObjectType" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerCell" Association="RpgGamingModel.Store.FK_PlayerCell">
+            <End Role="Cell" EntitySet="Cell" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerObject" Association="RpgGamingModel.Store.FK_PlayerObject">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeaponPlayer" Association="RpgGamingModel.Store.FK_WeaponPlayer">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Weapon" EntitySet="Weapon" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cell">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PosX" Type="smallint" Nullable="false" />
+          <Property Name="PosY" Type="smallint" Nullable="false" />
+          <Property Name="MonsterRate" Type="smallint" Nullable="false" />
+          <Property Name="MonsterGroup" Type="smallint" Nullable="false" />
+          <Property Name="CanMoveTo" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Monster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AttackRate" Type="smallint" Nullable="false" />
+          <Property Name="MissRate" Type="smallint" Nullable="false" />
+          <Property Name="HP" Type="bigint" Nullable="false" />
+          <Property Name="Group" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerID" Type="int" Nullable="false" />
+          <Property Name="ObjectTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjectType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="HPRestoreValue" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AttackStrenghtBoost" Type="smallint" Nullable="false" />
+          <Property Name="DefenseBoost" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="XP" Type="bigint" Nullable="false" />
+          <Property Name="HP" Type="bigint" Nullable="false" />
+          <Property Name="MaxHP" Type="bigint" Nullable="false" />
+          <Property Name="Cell_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AttackRate" Type="smallint" Nullable="false" />
+          <Property Name="MissRate" Type="smallint" Nullable="false" />
+          <Property Name="Player_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ObjectTypeObject">
+          <End Role="ObjectType" Type="RpgGamingModel.Store.ObjectType" Multiplicity="1" />
+          <End Role="Object" Type="RpgGamingModel.Store.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjectType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="ObjectTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerCell">
+          <End Role="Cell" Type="RpgGamingModel.Store.Cell" Multiplicity="1" />
+          <End Role="Player" Type="RpgGamingModel.Store.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cell">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="Cell_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerObject">
+          <End Role="Player" Type="RpgGamingModel.Store.Player" Multiplicity="1" />
+          <End Role="Object" Type="RpgGamingModel.Store.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeaponPlayer">
+          <End Role="Player" Type="RpgGamingModel.Store.Player" Multiplicity="1" />
+          <End Role="Weapon" Type="RpgGamingModel.Store.Weapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Weapon">
+              <PropertyRef Name="Player_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RpgGamingModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="RpgGamingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cell" EntityType="RpgGamingModel.Cell" />
+          <EntitySet Name="Monster" EntityType="RpgGamingModel.Monster" />
+          <EntitySet Name="Object" EntityType="RpgGamingModel.Object" />
+          <EntitySet Name="ObjectType" EntityType="RpgGamingModel.ObjectType" />
+          <EntitySet Name="Player" EntityType="RpgGamingModel.Player" />
+          <EntitySet Name="Weapon" EntityType="RpgGamingModel.Weapon" />
+          <AssociationSet Name="FK_PlayerCell" Association="RpgGamingModel.FK_PlayerCell">
+            <End Role="Cell" EntitySet="Cell" />
+            <End Role="Player" EntitySet="Player" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectTypeObject" Association="RpgGamingModel.FK_ObjectTypeObject">
+            <End Role="ObjectType" EntitySet="ObjectType" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayerObject" Association="RpgGamingModel.FK_PlayerObject">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeaponPlayer" Association="RpgGamingModel.FK_WeaponPlayer">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Weapon" EntitySet="Weapon" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cell">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PosX" Type="Int16" Nullable="false" />
+          <Property Name="PosY" Type="Int16" Nullable="false" />
+          <Property Name="MonsterRate" Type="Int16" Nullable="false" />
+          <Property Name="MonsterGroup" Type="Int16" Nullable="false" />
+          <Property Name="CanMoveTo" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Player" Relationship="RpgGamingModel.FK_PlayerCell" FromRole="Cell" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Monster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AttackRate" Type="Int16" Nullable="false" />
+          <Property Name="MissRate" Type="Int16" Nullable="false" />
+          <Property Name="HP" Type="Int64" Nullable="false" />
+          <Property Name="Group" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerID" Type="Int32" Nullable="false" />
+          <Property Name="ObjectTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ObjectType" Relationship="RpgGamingModel.FK_ObjectTypeObject" FromRole="Object" ToRole="ObjectType" />
+          <NavigationProperty Name="Player" Relationship="RpgGamingModel.FK_PlayerObject" FromRole="Object" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="ObjectType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HPRestoreValue" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AttackStrenghtBoost" Type="Int16" Nullable="false" />
+          <Property Name="DefenseBoost" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Object" Relationship="RpgGamingModel.FK_ObjectTypeObject" FromRole="ObjectType" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="XP" Type="Int64" Nullable="false" />
+          <Property Name="HP" Type="Int64" Nullable="false" />
+          <Property Name="MaxHP" Type="Int64" Nullable="false" />
+          <Property Name="Cell_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cell" Relationship="RpgGamingModel.FK_PlayerCell" FromRole="Player" ToRole="Cell" />
+          <NavigationProperty Name="Object" Relationship="RpgGamingModel.FK_PlayerObject" FromRole="Player" ToRole="Object" />
+          <NavigationProperty Name="Weapon" Relationship="RpgGamingModel.FK_WeaponPlayer" FromRole="Player" ToRole="Weapon" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="AttackRate" Type="Int16" Nullable="false" />
+          <Property Name="MissRate" Type="Int16" Nullable="false" />
+          <Property Name="Player_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="RpgGamingModel.FK_WeaponPlayer" FromRole="Weapon" ToRole="Player" />
+        </EntityType>
+        <Association Name="FK_PlayerCell">
+          <End Role="Cell" Type="RpgGamingModel.Cell" Multiplicity="1" />
+          <End Role="Player" Type="RpgGamingModel.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cell">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Player">
+              <PropertyRef Name="Cell_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectTypeObject">
+          <End Role="ObjectType" Type="RpgGamingModel.ObjectType" Multiplicity="1" />
+          <End Role="Object" Type="RpgGamingModel.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObjectType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="ObjectTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayerObject">
+          <End Role="Player" Type="RpgGamingModel.Player" Multiplicity="1" />
+          <End Role="Object" Type="RpgGamingModel.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeaponPlayer">
+          <End Role="Player" Type="RpgGamingModel.Player" Multiplicity="1" />
+          <End Role="Weapon" Type="RpgGamingModel.Weapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Weapon">
+              <PropertyRef Name="Player_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RpgGamingModelStoreContainer" CdmEntityContainer="RpgGamingEntities">
+          <EntitySetMapping Name="Cell">
+            <EntityTypeMapping TypeName="RpgGamingModel.Cell">
+              <MappingFragment StoreEntitySet="Cell">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PosX" ColumnName="PosX" />
+                <ScalarProperty Name="PosY" ColumnName="PosY" />
+                <ScalarProperty Name="MonsterRate" ColumnName="MonsterRate" />
+                <ScalarProperty Name="MonsterGroup" ColumnName="MonsterGroup" />
+                <ScalarProperty Name="CanMoveTo" ColumnName="CanMoveTo" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monster">
+            <EntityTypeMapping TypeName="RpgGamingModel.Monster">
+              <MappingFragment StoreEntitySet="Monster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AttackRate" ColumnName="AttackRate" />
+                <ScalarProperty Name="MissRate" ColumnName="MissRate" />
+                <ScalarProperty Name="HP" ColumnName="HP" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Object">
+            <EntityTypeMapping TypeName="RpgGamingModel.Object">
+              <MappingFragment StoreEntitySet="Object">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="ObjectTypeID" ColumnName="ObjectTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjectType">
+            <EntityTypeMapping TypeName="RpgGamingModel.ObjectType">
+              <MappingFragment StoreEntitySet="ObjectType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HPRestoreValue" ColumnName="HPRestoreValue" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AttackStrenghtBoost" ColumnName="AttackStrenghtBoost" />
+                <ScalarProperty Name="DefenseBoost" ColumnName="DefenseBoost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Player">
+            <EntityTypeMapping TypeName="RpgGamingModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="XP" ColumnName="XP" />
+                <ScalarProperty Name="HP" ColumnName="HP" />
+                <ScalarProperty Name="MaxHP" ColumnName="MaxHP" />
+                <ScalarProperty Name="Cell_ID" ColumnName="Cell_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weapon">
+            <EntityTypeMapping TypeName="RpgGamingModel.Weapon">
+              <MappingFragment StoreEntitySet="Weapon">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AttackRate" ColumnName="AttackRate" />
+                <ScalarProperty Name="MissRate" ColumnName="MissRate" />
+                <ScalarProperty Name="Player_ID" ColumnName="Player_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

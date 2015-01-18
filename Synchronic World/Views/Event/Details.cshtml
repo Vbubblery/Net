@@ -1,0 +1,87 @@
+﻿@model Synchronic_World.Models.EventSystem
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<fieldset>
+    <legend>EventSystem</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Date)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Time)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Time)
+    </div>
+    <div>@Html.ActionLink("Contribution", "Create","Contribution")</div>
+    <div id="Contribution">
+
+    </div>
+    <div>@Html.ActionLink("Invite Friend", "Invite","Event")</div>
+    <div>@Html.ActionLink("Join the Event", "Join","Event")</div>
+    <div id="friend"></div>
+</fieldset>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<script type="text/javascript">
+    var friend = document.getElementById('friend');
+    var friendajax = function () {
+        var xml = new XMLHttpRequest();
+        xml.open("get", "/Event/EventFriend", false);
+        xml.send();
+        if (xml.status == 200)
+        {
+            var Json = JSON.parse(xml.response);
+            Json.forEach(function (key) {
+                friend.innerHTML += "<div style='float:left;margin-left:5px;'>"+key+"</div>";
+            });
+        }
+    }
+    var contribution = document.getElementById('Contribution');
+    var ajax=function(){
+        contribution.innerText = "";
+        var xml = new XMLHttpRequest();
+        xml.open("get", "/Event/AllContribution", false);
+        xml.send();
+        if (xml.status == 200) {
+            var Json = JSON.parse(xml.response);
+            Json.forEach(function (key) {
+                contribution.innerHTML += "<div>"+ key.Name + "," + "Quantity:" + key.Quantity + "</div>"
+            });
+        }
+    }
+    window.onload = function () {
+        ajax();
+        friendajax();
+    };
+</script>

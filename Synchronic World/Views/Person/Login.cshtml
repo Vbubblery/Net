@@ -1,0 +1,32 @@
+﻿@model Synchronic_World.Models.PersonSystem
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+@using (Html.BeginForm()) { 
+<fieldset>
+        <legend>Login</legend>
+            <div class="editor-label">
+            <label for="Name">Name</label>
+        </div>
+        <div class="editor-field">
+            <input type="text" name="username" required />
+        </div>
+               <div class="editor-label">
+            <label for="Password">Password</label>
+        </div>
+        <div class="editor-field">
+            <input type="password" name="password" required />
+        </div>
+            @Html.ValidationMessage("error")
+    <p>
+            <input type="submit" value="Ok" />
+        </p>
+</fieldset>
+
+
+
+
+}
+

@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Friend";
+}
+<h2>Friend</h2>
+<div>
+        <input type="text" id="friendname" name="friendname" />
+        <input type="button" value="Find" id="find" />
+</div>
+<div id="findfriend"></div>
+<h3>Friend:</h3>
+<div id ="all"></div>
+<script type="text/javascript">
+    var friendname = document.getElementById('friendname');
+    var find = document.getElementById("find");
+    var getlist = document.getElementById("all");
+    var findfriend = document.getElementById("findfriend");
+    find.addEventListener("click", function (e) {
+        findfriend.innerHTML = "";
+        var xml = new XMLHttpRequest();
+        xml.open("post", "/person/FindFriend", false);
+        xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xml.send("fname="+friendname.value );
+        var Json = JSON.parse(xml.response);
+        console.log(Json);
+        Json.forEach(function (key) { findfriend.innerHTML += "<div style='float:left;margin-left:4px;'>" + key.Name +"  "+ key.Role + "</div><a href='/person/addfriend?friendname=" + key.Name + "' ;'>Add</a>" });
+
+    }, false);
+    
+
+
+    var ajax = function () {
+        getlist.innerText = "";
+        var xml = new XMLHttpRequest();
+        xml.open("get", "/person/allperson", false);
+        xml.send();
+        if (xml.status == 200) {
+            var Json = JSON.parse(xml.response);
+            Json.forEach(function (key) { getlist.innerHTML += "<div style='float:left;margin-left:4px;'>" + key.FriendName + "</div><a href='/person/RemoveFriend?friendname=" + key.FriendName + "' ;'>Remove</a>" });
+        }
+ }
+
+ window.onload = ajax;
+    
+</script>
