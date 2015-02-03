@@ -4,6 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Height="150" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF1A7B91" Offset="0"/>
+            <GradientStop Color="White" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.07*" />
@@ -21,7 +27,14 @@
             <ColumnDefinition Width="0.05*" />
         </Grid.ColumnDefinitions>
         <TextBlock Text="Please type a name to save:" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" FontSize="18" FontFamily="Viner Hand ITC" />
-        <TextBox Name="RoleName"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" FontStyle="Italic" />
-        <Button Grid.Row="4" Grid.Column="2" Width="100" Height="40" Click="Button_Click_1" />
+        <TextBox Name="RoleName"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" FontSize="30" FontStyle="Italic" KeyDown="RoleName_KeyDown"   />
+        <Canvas  Grid.Row="4" Grid.Column="2" Width="100" Height="40" MouseUp="Canvas_MouseUp_1"   >
+            <Canvas.Background>
+                <ImageBrush ImageSource="Resources/OK.png"/>
+            </Canvas.Background>
+        </Canvas>
+
+
+
     </Grid>
 </Window>

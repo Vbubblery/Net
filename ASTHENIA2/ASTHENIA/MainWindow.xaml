@@ -3,6 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Properties="clr-namespace:ASTHENIA.Properties" x:Class="ASTHENIA.MainWindow"
         Title="MainWindow" Height="650" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF5C6B6E" Offset="0"/>
+            <GradientStop Color="#FF2B8499" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -22,15 +28,23 @@
             <ColumnDefinition Width="0.025*" />
         </Grid.ColumnDefinitions>
         <TextBlock Name="title" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" FontSize="70" FontStyle="Italic" FontFamily="Viner Hand ITC"  Text="  A S T H E N I A       V1"/>
-        <ListBox Grid.Column="1" Grid.Row="3" Name="SaveList" FontSize="16" SelectionChanged="SaveList_SelectionChanged" />
+        <ListBox Grid.Column="1" Grid.Row="3" Name="SaveList" FontSize="16" SelectionChanged="SaveList_SelectionChanged" Background="#FF1C6A7C" />
         <Button Name="NewGame" Content="New Game" Grid.Column="1" Grid.Row="4" Width="100" Height="40" Click="NewGame_Click" >
             <Button.Background>
-                <ImageBrush ImageSource="Resources/14.png" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="Resources/14.png" />
             </Button.Background>
         </Button>
         <TextBlock Name="GetInformation" Grid.Column="3"   Text="" Grid.Row="3" Grid.ColumnSpan="2" FontSize="16" TextDecorations="Underline" FontStyle="Italic" />
-        <Button Grid.Column="3" Content="Loading" Grid.Row="4" Width="100" Height="40" Click="Button_Click_2" />
-        <Button Grid.Column="4" Content="Delete" Grid.Row="4" Width="100" Height="40" Click="Button_Click_1" />
-      
+        <Button Name="but"  Grid.Column="3" Content="Loading" Grid.Row="4" Width="100" Height="40" Click="Button_Click_2" IsEnabled="False" >
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/14.png"/>
+            </Button.Background>
+        </Button>
+        <Button Name="butt" Grid.Column="4" Content="Delete" Grid.Row="4" Width="100" Height="40" Click="Button_Click_1" IsEnabled="False" >
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/14.png"/>
+            </Button.Background>
+        </Button>
+
     </Grid>
 </Window>
