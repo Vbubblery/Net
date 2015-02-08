@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="DriverSet" EntityType="Model1.Store.DriverSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CitySet" EntityType="Model1.Store.CitySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TripSet" EntityType="Model1.Store.TripSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CarModelSet" EntityType="Model1.Store.CarModelSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CampusSet" EntityType="Model1.Store.CampusSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="DriverCity" Association="Model1.Store.DriverCity">
+      <End Role="Driver" EntitySet="DriverSet" />
+      <End Role="City" EntitySet="CitySet" />
+    </AssociationSet>
+    <AssociationSet Name="DriverCampus" Association="Model1.Store.DriverCampus">
+      <End Role="Driver" EntitySet="DriverSet" />
+      <End Role="Campus" EntitySet="CampusSet" />
+    </AssociationSet>
+    <AssociationSet Name="DriverCarModel" Association="Model1.Store.DriverCarModel">
+      <End Role="Driver" EntitySet="DriverSet" />
+      <End Role="CarModel" EntitySet="CarModelSet" />
+    </AssociationSet>
+    <AssociationSet Name="TripDriver" Association="Model1.Store.TripDriver">
+      <End Role="Trip" EntitySet="TripSet" />
+      <End Role="Driver" EntitySet="DriverSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DriverSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="Salary" Type="float" Nullable="false" />
+    <Property Name="City_Id" Type="int" Nullable="false" />
+    <Property Name="Campus_Id" Type="int" Nullable="false" />
+    <Property Name="CarModel_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CitySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TripSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Departure" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DepartureTime" Type="datetime" Nullable="false" />
+    <Property Name="Arrival" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ArrivalTime" Type="datetime" Nullable="false" />
+    <Property Name="ClientFirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClientLastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Driver_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="CarModelSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModelName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CampusSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CampusName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="DriverCity">
+    <End Role="Driver" Type="Model1.Store.DriverSet" Multiplicity="*" />
+    <End Role="City" Type="Model1.Store.CitySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Driver">
+        <PropertyRef Name="City_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DriverCampus">
+    <End Role="Driver" Type="Model1.Store.DriverSet" Multiplicity="*" />
+    <End Role="Campus" Type="Model1.Store.CampusSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Campus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Driver">
+        <PropertyRef Name="Campus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DriverCarModel">
+    <End Role="Driver" Type="Model1.Store.DriverSet" Multiplicity="*" />
+    <End Role="CarModel" Type="Model1.Store.CarModelSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CarModel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Driver">
+        <PropertyRef Name="CarModel_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TripDriver">
+    <End Role="Trip" Type="Model1.Store.TripSet" Multiplicity="*" />
+    <End Role="Driver" Type="Model1.Store.DriverSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Driver">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trip">
+        <PropertyRef Name="Driver_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DriverSet" EntityType="Model1.Driver" />
+          <EntitySet Name="CitySet" EntityType="Model1.City" />
+          <EntitySet Name="TripSet" EntityType="Model1.Trip" />
+          <EntitySet Name="CarModelSet" EntityType="Model1.CarModel" />
+          <EntitySet Name="CampusSet" EntityType="Model1.Campus" />
+          <AssociationSet Name="DriverCity" Association="Model1.DriverCity">
+            <End Role="Driver" EntitySet="DriverSet" />
+            <End Role="City" EntitySet="CitySet" />
+          </AssociationSet>
+          <AssociationSet Name="DriverCampus" Association="Model1.DriverCampus">
+            <End Role="Driver" EntitySet="DriverSet" />
+            <End Role="Campus" EntitySet="CampusSet" />
+          </AssociationSet>
+          <AssociationSet Name="DriverCarModel" Association="Model1.DriverCarModel">
+            <End Role="Driver" EntitySet="DriverSet" />
+            <End Role="CarModel" EntitySet="CarModelSet" />
+          </AssociationSet>
+          <AssociationSet Name="TripDriver" Association="Model1.TripDriver">
+            <End Role="Trip" EntitySet="TripSet" />
+            <End Role="Driver" EntitySet="DriverSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="City" Relationship="Model1.DriverCity" FromRole="Driver" ToRole="City" />
+          <NavigationProperty Name="Campus" Relationship="Model1.DriverCampus" FromRole="Driver" ToRole="Campus" />
+          <NavigationProperty Name="CarModel" Relationship="Model1.DriverCarModel" FromRole="Driver" ToRole="CarModel" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Salary" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Trip" Relationship="Model1.TripDriver" FromRole="Driver" ToRole="Trip" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Driver" Relationship="Model1.DriverCity" FromRole="City" ToRole="Driver" />
+          <Property Name="CityName" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Departure" Type="String" Nullable="false" />
+          <Property Name="DepartureTime" Type="DateTime" Nullable="false" />
+          <Property Name="Arrival" Type="String" Nullable="false" />
+          <Property Name="ArrivalTime" Type="DateTime" Nullable="false" />
+          <Property Name="ClientFirstName" Type="String" Nullable="false" />
+          <Property Name="ClientLastName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Driver" Relationship="Model1.TripDriver" FromRole="Trip" ToRole="Driver" />
+        </EntityType>
+        <EntityType Name="CarModel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Driver" Relationship="Model1.DriverCarModel" FromRole="CarModel" ToRole="Driver" />
+          <Property Name="ModelName" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Driver" Relationship="Model1.DriverCampus" FromRole="Campus" ToRole="Driver" />
+          <Property Name="CampusName" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="DriverCity">
+          <End Type="Model1.Driver" Role="Driver" Multiplicity="*" />
+          <End Type="Model1.City" Role="City" Multiplicity="1" />
+        </Association>
+        <Association Name="DriverCampus">
+          <End Type="Model1.Driver" Role="Driver" Multiplicity="*" />
+          <End Type="Model1.Campus" Role="Campus" Multiplicity="1" />
+        </Association>
+        <Association Name="DriverCarModel">
+          <End Type="Model1.Driver" Role="Driver" Multiplicity="*" />
+          <End Type="Model1.CarModel" Role="CarModel" Multiplicity="1" />
+        </Association>
+        <Association Name="TripDriver">
+          <End Type="Model1.Trip" Role="Trip" Multiplicity="*" />
+          <End Type="Model1.Driver" Role="Driver" Multiplicity="0..1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="DriverSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Driver)">
+        <MappingFragment StoreEntitySet="DriverSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CitySet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.City)">
+        <MappingFragment StoreEntitySet="CitySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TripSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Trip)">
+        <MappingFragment StoreEntitySet="TripSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Departure" ColumnName="Departure" />
+          <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+          <ScalarProperty Name="Arrival" ColumnName="Arrival" />
+          <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
+          <ScalarProperty Name="ClientFirstName" ColumnName="ClientFirstName" />
+          <ScalarProperty Name="ClientLastName" ColumnName="ClientLastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CarModelSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CarModel)">
+        <MappingFragment StoreEntitySet="CarModelSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CampusSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Campus)">
+        <MappingFragment StoreEntitySet="CampusSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CampusName" ColumnName="CampusName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="DriverCity" TypeName="Model1.DriverCity" StoreEntitySet="DriverSet">
+      <EndProperty Name="City">
+        <ScalarProperty Name="Id" ColumnName="City_Id" />
+      </EndProperty>
+      <EndProperty Name="Driver">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DriverCampus" TypeName="Model1.DriverCampus" StoreEntitySet="DriverSet">
+      <EndProperty Name="Campus">
+        <ScalarProperty Name="Id" ColumnName="Campus_Id" />
+      </EndProperty>
+      <EndProperty Name="Driver">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DriverCarModel" TypeName="Model1.DriverCarModel" StoreEntitySet="DriverSet">
+      <EndProperty Name="CarModel">
+        <ScalarProperty Name="Id" ColumnName="CarModel_Id" />
+      </EndProperty>
+      <EndProperty Name="Driver">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TripDriver" TypeName="Model1.TripDriver" StoreEntitySet="TripSet">
+      <EndProperty Name="Driver">
+        <ScalarProperty Name="Id" ColumnName="Driver_Id" />
+      </EndProperty>
+      <EndProperty Name="Trip">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Driver_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -10,20 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace _2NET_Liu_Yaning
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// ManageWaiter.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class ManageWaiter : Window
     {
-        public MainWindow()
+        public ManageWaiter(AdminPage admin,Waiter waiter)
         {
             InitializeComponent();
         }
-
     }
 }

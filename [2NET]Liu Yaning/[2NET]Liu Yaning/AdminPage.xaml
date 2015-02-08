@@ -1,0 +1,62 @@
+﻿<Page x:Class="_2NET_Liu_Yaning.AdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_2NET_Liu_Yaning"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Name="Dishes" Grid.Column="0">
+            <ListView HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="320"  Name="dishesLV" SelectionChanged="dishesLV_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridView.ColumnHeaderContextMenu>
+                            <ContextMenu/>
+                        </GridView.ColumnHeaderContextMenu>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="160"/>
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="70"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="Add" HorizontalAlignment="Left" Margin="105,415,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        </Grid>
+        <Grid Name="Waiters" Grid.Column="0">
+            <ListView HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="360"  Name="waiterLV" >
+                <ListView.View>
+                    <GridView>
+                        <GridView.ColumnHeaderContextMenu>
+                            <ContextMenu/>
+                        </GridView.ColumnHeaderContextMenu>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"/>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="100"/>
+                        <GridViewColumn Header="Sexy" DisplayMemberBinding="{Binding Sexy}" Width="50"/>
+                        <GridViewColumn Header="Tables" DisplayMemberBinding="{Binding Tables}" Width="60"/>
+                        <GridViewColumn Header="Earned" DisplayMemberBinding="{Binding Earned}" Width="60"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="Add" HorizontalAlignment="Left" Margin="105,415,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2" />
+        </Grid>
+        <Grid Name="Map" Grid.Column="0">
+
+        </Grid>
+        <Grid Name="All" Grid.Column="0">
+
+
+        </Grid>
+        <Grid Grid.Column="1" Height="500" VerticalAlignment="Bottom">
+            <Button x:Name="button1" Content="←" Margin="22.727,0,10,480" VerticalAlignment="Bottom" Width="40" Height="20" d:LayoutOverrides="HorizontalAlignment, LeftMargin, RightMargin" Click="button1_Click"/>
+            <Button x:Name="button" Content="Dishes" Margin="0,56.715,0,0" VerticalAlignment="Top" Click="button_Click"/>
+            <Button x:Name="button2" Content="Waiters" Margin="0,131.88,0,0" VerticalAlignment="Top" Click="button2_Click"/>
+            <Button x:Name="button3" Content="Map" Margin="0,204.074,0,0" VerticalAlignment="Top" Click="button3_Click"/>
+            <Button x:Name="button4" Content="All" Margin="-0.001,0,0,203.26" VerticalAlignment="Bottom" Click="button4_Click"/>
+        </Grid>
+    </Grid>
+</Page>

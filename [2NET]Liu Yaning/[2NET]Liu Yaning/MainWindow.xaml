@@ -1,12 +1,9 @@
-﻿<Window x:Class="_2NET_Liu_Yaning.MainWindow"
+﻿<NavigationWindow  x:Class="_2NET_Liu_Yaning.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_2NET_Liu_Yaning"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
-    <Grid>
-        
-    </Grid>
-</Window>
+        Title="MainWindow" Height="500" Width="800" ResizeMode="NoResize" WindowStyle="None"  ShowsNavigationUI="False" Source="MainPage.xaml"  WindowStartupLocation="CenterScreen">
+</NavigationWindow>

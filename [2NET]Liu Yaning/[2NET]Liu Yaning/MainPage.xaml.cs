@@ -16,14 +16,23 @@ using System.Windows.Shapes;
 namespace _2NET_Liu_Yaning
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class MainPage : Page
     {
-        public MainWindow()
+        public MainPage()
         {
             InitializeComponent();
         }
 
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("AdminPage.xaml", UriKind.Relative));
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

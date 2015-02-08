@@ -10,20 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace _2NET_Liu_Yaning
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoadWindow.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class LoadWindow : Window
     {
-        public MainWindow()
+        public LoadWindow()
         {
             InitializeComponent();
         }
-
+        private void Storyboard_Completed_1(object sender, EventArgs e)
+        {
+            new MainWindow().Show();
+            this.Close();
+        }
     }
 }
